@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rocka.rockaeventbus.RockaEventBus;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -15,6 +17,7 @@ public class RefreshActivity extends AppCompatActivity {
     Context context;
     TextView normalEvent;
     TextView stickyEvent;
+    TextView rockaEvent;
     int a = 5;
 
     @Override
@@ -23,8 +26,9 @@ public class RefreshActivity extends AppCompatActivity {
         setContentView(R.layout.activity_refresh);
         context = this;
         normalEvent = findViewById(R.id.textView);
-
         stickyEvent = findViewById(R.id.textView2);
+        rockaEvent = findViewById(R.id.textView3);
+
         stickyEvent.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -42,6 +46,16 @@ public class RefreshActivity extends AppCompatActivity {
                 Toast.makeText(context, "refresh :" + a, Toast.LENGTH_LONG).show();
                 EventMessage eventMessage = new EventMessage(a);
                 EventBus.getDefault().post(eventMessage);
+            }
+        });
+
+        rockaEvent.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                a = a + 1;
+                Toast.makeText(context, "rocka refresh :" + a, Toast.LENGTH_LONG).show();
+                EventMessage eventMessage = new EventMessage(a);
+                RockaEventBus.getDefault().post(eventMessage);
             }
         });
     }
